@@ -25,9 +25,31 @@
    "amount": "330ml can",
    "kcal_est": "139",
    "protein_g_est": "0"
+  },
+  {
+   "date": "2026-11-05",
+   "meal": "snack",
+   "item": "whey protein",
+   "amount": "1 scoop",
+   "kcal_est": "120",
+   "protein_g_est": "25"
   }
  ],
- "daily": [],
+ "daily": [
+  {
+   "date": "2026-11-05",
+   "total_kcal": "1109",
+   "total_protein_g": "65",
+   "whey_scoops": "1",
+   "peanut_butter_tbsp": "0",
+   "gym_day": "yes",
+   "gym_done": "no",
+   "tennis": "no",
+   "soreness_notes": "",
+   "soreness_0_10": "",
+   "notes": ""
+  }
+ ],
  "lifts": [
   {
    "date": "2026-11-05",
