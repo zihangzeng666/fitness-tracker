@@ -9,7 +9,24 @@
    160
   ]
  },
- "food": [],
+ "food": [
+  {
+   "date": "2026-11-05",
+   "meal": "meal1",
+   "item": "gyudon beef bowl with onsen egg",
+   "amount": "1 bowl",
+   "kcal_est": "850",
+   "protein_g_est": "40"
+  },
+  {
+   "date": "2026-11-05",
+   "meal": "meal1",
+   "item": "coca-cola",
+   "amount": "330ml can",
+   "kcal_est": "139",
+   "protein_g_est": "0"
+  }
+ ],
  "daily": [],
  "lifts": [
   {
