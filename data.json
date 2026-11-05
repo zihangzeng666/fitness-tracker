@@ -33,13 +33,37 @@
    "amount": "1 scoop",
    "kcal_est": "120",
    "protein_g_est": "25"
+  },
+  {
+   "date": "2026-11-05",
+   "meal": "dinner",
+   "item": "katsu curry rice (lots of fried chicken cutlet)",
+   "amount": "1 large bowl",
+   "kcal_est": "1300",
+   "protein_g_est": "50"
+  },
+  {
+   "date": "2026-11-05",
+   "meal": "dinner",
+   "item": "extra curry sauce",
+   "amount": "1 tub",
+   "kcal_est": "250",
+   "protein_g_est": "5"
+  },
+  {
+   "date": "2026-11-05",
+   "meal": "dinner",
+   "item": "kimchi",
+   "amount": "1 tub",
+   "kcal_est": "40",
+   "protein_g_est": "2"
   }
  ],
  "daily": [
   {
    "date": "2026-11-05",
-   "total_kcal": "1109",
-   "total_protein_g": "65",
+   "total_kcal": "2699",
+   "total_protein_g": "122",
    "whey_scoops": "1",
    "peanut_butter_tbsp": "0",
    "gym_day": "yes",
