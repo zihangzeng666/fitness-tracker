@@ -1,0 +1,144 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Jason's Bulk Buddy 💪</title>
+<style>
+body{margin:0;font-family:"Comic Sans MS","Chalkboard SE","Baloo",system-ui,sans-serif;background:#fff6d8;color:#2b2140}
+header{background:#ff7a59;color:#fff;padding:18px;text-align:center;border-bottom:5px solid #2b2140}
+h1{margin:0;font-size:28px}.sub{opacity:.9}
+main{max-width:960px;margin:auto;padding:14px;display:grid;gap:16px}
+.card{background:#fff;border:4px solid #2b2140;border-radius:22px;box-shadow:6px 6px 0 #2b2140;padding:16px}
+h2{margin:0 0 10px;font-size:21px}
+.row{display:flex;flex-wrap:wrap;gap:16px;justify-content:center}
+.ring{text-align:center;flex:1;min-width:200px}.big{font-size:44px}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.tabs button{font:inherit;border:3px solid #2b2140;border-radius:14px;background:#7ad7f0;padding:6px 12px;cursor:pointer}
+.tabs button.on{background:#ffd23f;transform:translateY(-2px)}
+table{width:100%;border-collapse:collapse}td,th{padding:6px;border-bottom:2px dashed #ddd;text-align:left}td.n,th.n{text-align:right}
+.empty{text-align:center;padding:18px;color:#8a7fa0;font-size:18px}
+ul.check{list-style:none;padding:0;font-size:19px}ul.check li{padding:4px 0}
+.small{font-size:13px;color:#7a6f8f}
+
+.ring circle.prog{transition:stroke-dasharray 1.2s ease-out}
+.mascot{font-size:64px;text-align:center;cursor:pointer;transition:transform .3s}.mascot:active{transform:scale(1.3) rotate(-10deg)}
+.streak{text-align:center;font-size:22px;font-weight:bold}
+.days{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px}
+.day{border:3px solid #2b2140;border-radius:16px;padding:8px;cursor:pointer;background:#e9f9ff;transition:transform .15s}.day:hover{transform:translateY(-3px)}
+.day.open{background:#ffe98a}.day .det{display:none;font-size:14px;margin-top:6px}.day.open .det{display:block}
+.tip{text-align:center;font-weight:bold;min-height:22px}
+svg circle.pt{cursor:pointer}svg circle.pt:hover{r:12}
+.conf{position:fixed;top:-20px;font-size:24px;pointer-events:none;animation:fall 2.2s linear forwards}@keyframes fall{to{transform:translateY(105vh) rotate(540deg)}}
+select{font:inherit;border:3px solid #2b2140;border-radius:12px;padding:4px 8px;background:#fff}
+@media(max-width:500px){h1{font-size:22px}.ring svg{width:120px}td,th{padding:4px;font-size:13px}}
+</style></head><body>
+<header><h1>💪 Jason's Bulk Buddy</h1><div class="sub">170 cm · 60 kg · bulking mode 🍗🥜</div></header>
+<main>
+<section class="card" id="today"><h2>🎯 Today <span id="todayDate" class="small"></span></h2><div class="row" id="rings"></div><div class="mascot" id="mascot" title="tap me"></div><div class="tip" id="mascotMsg"></div><div class="streak" id="streak"></div></section>
+<section class="card"><h2>📆 Days <span class="tabs" id="metricTabs" style="display:inline-flex"><button data-m="k" class="on">🔥 Calories</button><button data-m="p">🥩 Protein</button></span></h2><div id="dayChart"></div><div class="tip" id="dayTip"></div><div class="days" id="dayCards"></div></section>
+<section class="card"><h2>✅ Daily checklist</h2><div id="checklist"></div></section>
+<section class="card"><h2>🍽️ Food log</h2><div class="tabs" id="foodTabs"></div><div id="food"></div></section>
+<section class="card"><h2>🏋️ Gym history</h2><div id="gym"></div><div class="tabs" id="liftTabs"></div><div id="chart"></div><div class="tip" id="liftTip"></div></section>
+<section class="card"><h2>📅 Weekly comparison <select id="weekSel"></select></h2><div id="weekly"></div></section>
+<p class="small" style="text-align:center">All numbers are estimates from Jason's check-ins. No sample data.</p>
+</main>
+<script>
+function confetti(n){for(let i=0;i<n;i++){const s=document.createElement("span");s.className="conf";s.textContent=["🎉","⭐","💪","🍗","🥜"][i%5];s.style.left=Math.random()*100+"vw";s.style.animationDelay=Math.random()*.6+"s";document.body.appendChild(s);setTimeout(()=>s.remove(),3000)}}
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const num=v=>{const m=String(v||"").match(/[\d.]+/g);return m?Math.max(...m.map(Number)):NaN};
+const empty=t=>`<div class="empty">🐣 ${t}</div>`;
+function ring(label,val,[lo,hi],unit,color){
+  const has=!isNaN(val),pct=has?Math.min(val/hi,1):0,C=2*Math.PI*52,ok=has&&val>=lo;
+  return `<div class="ring"><svg viewBox="0 0 130 130" width="150"><circle cx="65" cy="65" r="52" fill="none" stroke="#eee" stroke-width="16"/>
+  <circle cx="65" cy="65" r="52" fill="none" stroke="${color}" stroke-width="16" stroke-linecap="round" class="prog" data-to="${C*pct} ${C}" stroke-dasharray="0 ${C}" transform="rotate(-90 65 65)"/>
+  <text x="65" y="72" text-anchor="middle" font-size="20" font-weight="bold">${has?Math.round(val):"–"}</text></svg>
+  <div><b>${label}</b> · target ${lo}–${hi}${unit}</div><div class="big">${has?(ok?"✅":"❌"):"⏳"}</div>${has?"":`<div class="small">nothing logged yet</div>`}</div>`}
+fetch("data.json?"+Date.now()).then(r=>r.json()).then(D=>{
+  const T=D.targets,today=new Date().toISOString().slice(0,10);
+  const dates=[...new Set([...D.food,...D.daily,...D.lifts].map(r=>r.date))].sort();
+  const dayTot=d=>{const row=D.daily.find(r=>r.date===d),f=D.food.filter(r=>r.date===d);
+    const k=row&&row.total_kcal?num(row.total_kcal):f.length?f.reduce((a,r)=>a+(num(r.kcal_est)||0),0):NaN;
+    const p=row&&row.total_protein_g?num(row.total_protein_g):f.length?f.reduce((a,r)=>a+(num(r.protein_g_est)||0),0):NaN;
+    return {k,p,row}};
+  const t=dayTot(today);$("todayDate").textContent=today;
+  $("rings").innerHTML=ring("🔥 Calories",t.k,T.kcal," kcal","#ff7a59")+ring("🥩 Protein",t.p,T.protein," g","#4cc38a");
+
+  // animate rings
+  requestAnimationFrame(()=>setTimeout(()=>document.querySelectorAll("circle.prog").forEach(c=>c.setAttribute("stroke-dasharray",c.dataset.to)),50));
+  // mascot
+  const fr=[t.k/T.kcal[0],t.p/T.protein[0]].filter(v=>!isNaN(v)),f=fr.length?Math.min(...fr):NaN;
+  const [face,msg]=isNaN(f)?["🥚","Feed me data! Log today's food at 9pm."]:f>=1?["🦍","BEAST MODE. Both goals smashed!"]:f>=.75?["💪","So close. One more shake!"]:f>=.4?["🐻","Halfway. Keep eating!"]:["🐣","Tiny chick. Need fuel!"];
+  $("mascot").textContent=face;$("mascotMsg").textContent=msg;$("mascot").onclick=()=>confetti(15);
+  if(!isNaN(f)&&f>=1)confetti(40);
+  // streak: consecutive days (ending today or yesterday) hitting both
+  const hit=d=>{const x=dayTot(d);return x.k>=T.kcal[0]&&x.p>=T.protein[0]};
+  let s=0,cur=new Date(today+"T00:00:00Z");if(!hit(today))cur.setUTCDate(cur.getUTCDate()-1);
+  while(hit(cur.toISOString().slice(0,10))){s++;cur.setUTCDate(cur.getUTCDate()-1)}
+  $("streak").textContent=`🔥 Streak: ${s} day${s==1?"":"s"} hitting both goals`;
+  // day cards + daily chart with toggle
+  let metric="k";const nd=dates.filter(d=>!isNaN(dayTot(d).k)||!isNaN(dayTot(d).p));
+  const drawDays=()=>{document.querySelectorAll("#metricTabs button").forEach(b=>b.classList.toggle("on",b.dataset.m===metric));
+    const tg=metric=="k"?T.kcal:T.protein,u=metric=="k"?" kcal":" g";
+    if(!nd.length){$("dayChart").innerHTML=empty("No days logged yet. Cards appear after your first check-in.");$("dayCards").innerHTML="";return}
+    const pts=nd.map(d=>[d,dayTot(d)[metric]]).filter(p=>!isNaN(p[1])),mx=Math.max(tg[1],...pts.map(p=>p[1]))*1.15,W=600,H=200;
+    const x=i=>40+(pts.length<2?(W-80)/2:i*(W-80)/(pts.length-1)),y=v=>H-30-v/mx*(H-60);
+    $("dayChart").innerHTML=`<svg viewBox="0 0 ${W} ${H}" width="100%"><rect x="30" y="${y(tg[1])}" width="${W-60}" height="${y(tg[0])-y(tg[1])}" fill="#4cc38a33"/><text x="34" y="${y(tg[1])-4}" font-size="12">target ${tg[0]}–${tg[1]}${u}</text>
+    <polyline fill="none" stroke="#ff7a59" stroke-width="5" points="${pts.map((p,i)=>x(i)+","+y(p[1])).join(" ")}"/>${pts.map((p,i)=>`<circle class="pt" data-v="${p[0]}: ${Math.round(p[1])}${u}" cx="${x(i)}" cy="${y(p[1])}" r="9" fill="${p[1]>=tg[0]?"#4cc38a":"#ffd23f"}" stroke="#2b2140" stroke-width="3"/>`).join("")}</svg>`;
+    $("dayCards").innerHTML=[...nd].reverse().map(d=>{const x=dayTot(d),f=D.food.filter(r=>r.date===d);
+      return `<div class="day"><b>${d.slice(5)}</b> ${x.k>=T.kcal[0]?"✅":"❌"}${x.p>=T.protein[0]?"✅":"❌"}<div>${Math.round(metric=="k"?x.k:x.p)||0}${u}</div>
+      <div class="det">🔥 ${isNaN(x.k)?"–":Math.round(x.k)} / ${T.kcal[0]} kcal<br>🥩 ${isNaN(x.p)?"–":Math.round(x.p)} / ${T.protein[0]} g${f.map(r=>`<br>${esc(r.item)}: ${esc(r.kcal_est)} kcal · ${esc(r.protein_g_est)} g`).join("")}</div></div>`}).join("")};
+  $("dayChart").onclick=e=>{if(e.target.dataset.v)$("dayTip").textContent="👉 "+e.target.dataset.v};
+  $("dayCards").onclick=e=>{const c=e.target.closest(".day");if(c)c.classList.toggle("open")};
+  $("metricTabs").onclick=e=>{if(e.target.dataset.m){metric=e.target.dataset.m;drawDays()}};drawDays();
+  // checklist
+  const r=t.row,mark=(c,known)=>known?(c?"✅":"❌"):"⏳";
+  let cl=`<ul class="check"><li>${mark(t.p>=T.protein[0],!isNaN(t.p))} Protein 140–160 g</li><li>${mark(t.k>=T.kcal[0],!isNaN(t.k))} Calorie surplus (2,800+)</li>
+  <li>${mark(r&&num(r.whey_scoops)>0,!!r)} Whey shake</li><li>${mark(r&&num(r.peanut_butter_tbsp)>0,!!r)} Peanut butter</li>`;
+  const liftedToday=D.lifts.some(l=>l.date===today);
+  if((r&&/y|true|1/i.test(r.gym_day))||liftedToday) cl+=`<li>${liftedToday||(r&&/y|true|1/i.test(r.gym_done))?"✅":"❌"} Gym session</li>`;
+  $("checklist").innerHTML=cl+"</ul>"+(r?"":`<div class="small">⏳ = nothing logged yet today</div>`);
+  // food
+  const fd=[...new Set(D.food.map(f=>f.date))].sort().reverse();
+  const showFood=d=>{document.querySelectorAll("#foodTabs button").forEach(b=>b.classList.toggle("on",b.dataset.d===d));
+    const f=D.food.filter(x=>x.date===d),s=dayTot(d);
+    $("food").innerHTML=`<table><tr><th>Meal</th><th>Item</th><th>Amount</th><th class="n">kcal</th><th class="n">Protein g</th></tr>`+
+    f.map(x=>`<tr><td>${esc(x.meal)}</td><td>${esc(x.item)}</td><td>${esc(x.amount)}</td><td class="n">${esc(x.kcal_est)}</td><td class="n">${esc(x.protein_g_est)}</td></tr>`).join("")+
+    `<tr><th colspan="3">Total</th><th class="n">${Math.round(s.k)}</th><th class="n">${Math.round(s.p)}</th></tr></table>`};
+  if(fd.length){$("foodTabs").innerHTML=fd.map(d=>`<button data-d="${d}">${d}</button>`).join("");
+    $("foodTabs").onclick=e=>e.target.dataset.d&&showFood(e.target.dataset.d);showFood(fd[0])}
+  else $("food").innerHTML=empty("Nothing logged yet. Food shows up after your 9pm check-in.");
+  // gym
+  if(!D.lifts.length){$("gym").innerHTML=empty("No sessions logged yet.")}else{
+    $("gym").innerHTML=`<table><tr><th>Date</th><th>Lift</th><th>Set</th><th class="n">kg</th><th class="n">Reps</th><th>Feel</th></tr>`+
+    [...D.lifts].reverse().map(l=>`<tr><td>${esc(l.date)}</td><td>${esc(l.exercise)}</td><td>${esc(l.set)}</td><td class="n">${esc(l.weight_kg)||"not logged"}</td><td class="n">${esc(l.reps)||"not logged"}</td><td>${esc(l.feel)||"–"}</td></tr>`).join("")+"</table>";
+    const ex=[...new Set(D.lifts.map(l=>l.exercise))];
+    const chart=e=>{document.querySelectorAll("#liftTabs button").forEach(b=>b.classList.toggle("on",b.dataset.e===e));
+      const by={};D.lifts.filter(l=>l.exercise===e&&!isNaN(num(l.weight_kg))).forEach(l=>by[l.date]=Math.max(by[l.date]||0,num(l.weight_kg)));
+      const pts=Object.entries(by).sort();if(!pts.length){$("chart").innerHTML=empty("No weights logged for this lift yet.");return}
+      const mx=Math.max(...pts.map(p=>p[1]))*1.2,W=600,H=200,x=i=>40+(pts.length<2?(W-80)/2:i*(W-80)/(pts.length-1)),y=v=>H-30-v/mx*(H-60);
+      $("chart").innerHTML=`<svg viewBox="0 0 ${W} ${H}" width="100%"><polyline fill="none" stroke="#7a5cff" stroke-width="5" points="${pts.map((p,i)=>x(i)+","+y(p[1])).join(" ")}"/>`+
+      pts.map((p,i)=>`<circle class="pt" data-v="${p[0]}: ${p[1]} kg" cx="${x(i)}" cy="${y(p[1])}" r="9" fill="#ffd23f" stroke="#2b2140" stroke-width="3"/><text x="${x(i)}" y="${y(p[1])-16}" text-anchor="middle">${p[1]} kg</text><text x="${x(i)}" y="${H-8}" text-anchor="middle" font-size="12">${p[0].slice(5)}</text>`).join("")+
+      `</svg>${pts.length<2?'<div class="small" style="text-align:center">One session so far. The line grows as you log more 📈</div>':""}`};
+    $("liftTabs").innerHTML=ex.map(e=>`<button data-e="${esc(e)}">${esc(e)}</button>`).join("");
+    $("chart").onclick=e=>{if(e.target.dataset.v)$("liftTip").textContent="👉 "+e.target.dataset.v};$("liftTabs").onclick=e=>e.target.dataset.e&&chart(e.target.dataset.e);chart(ex[0])}
+  // weekly (Mon-start)
+  const wk=d=>{const x=new Date(d+"T00:00:00Z"),o=(x.getUTCDay()+6)%7;x.setUTCDate(x.getUTCDate()-o);return x.toISOString().slice(0,10)};
+  const weeks=[...new Set(dates.map(wk))].sort().reverse();
+  if(!weeks.length){$("weekly").innerHTML=empty("No weeks logged yet.");return}
+  const renderWeek=sel=>{$("weekly").innerHTML=weeks.filter(w=>w===sel).map(w=>{const ds=dates.filter(d=>wk(d)===w),tots=ds.map(dayTot);
+    const ks=tots.map(x=>x.k).filter(v=>!isNaN(v)),ps=tots.map(x=>x.p).filter(v=>!isNaN(v)),sum=a=>a.reduce((s,v)=>s+v,0);
+    const gym=new Set(D.lifts.filter(l=>wk(l.date)===w).map(l=>l.date)).size;
+    const sore=D.daily.filter(r=>wk(r.date)===w&&r.soreness_0_10).map(r=>num(r.soreness_0_10));
+    const prog=[...new Set(D.lifts.map(l=>l.exercise))].map(e=>{const all=D.lifts.filter(l=>l.exercise===e&&!isNaN(num(l.weight_kg)));
+      const before=all.filter(l=>l.date<w).map(l=>num(l.weight_kg)),now=all.filter(l=>wk(l.date)===w).map(l=>num(l.weight_kg));
+      if(!now.length)return"";const m=Math.max(...now),b=before.length?Math.max(...before):null;
+      return `<li>${esc(e)}: ${m} kg ${b===null?"🆕 first log":m>b?"⬆️ up":m<b?"⬇️ down":"➡️ same"}</li>`}).join("");
+    const ok=(v,[lo])=>isNaN(v)?"⏳":v>=lo?"✅":"❌";const ak=ks.length?sum(ks)/ks.length:NaN,ap=ps.length?sum(ps)/ps.length:NaN;
+    return `<h3>Week of ${w}</h3><table><tr><td>Total calories</td><td class="n">${ks.length?Math.round(sum(ks)):"nothing logged yet"}</td></tr>
+    <tr><td>Total protein</td><td class="n">${ps.length?Math.round(sum(ps))+" g":"nothing logged yet"}</td></tr>
+    <tr><td>Avg calories / day vs 2,800–3,000</td><td class="n">${isNaN(ak)?"–":Math.round(ak)} ${ok(ak,T.kcal)}</td></tr>
+    <tr><td>Avg protein / day vs 140–160 g</td><td class="n">${isNaN(ap)?"–":Math.round(ap)+" g"} ${ok(ap,T.protein)}</td></tr>
+    <tr><td>Gym sessions</td><td class="n">${gym} 🏋️</td></tr>
+    <tr><td>Soreness trend</td><td class="n">${sore.length?sore.join(" → ")+" /10":"nothing logged yet"}</td></tr></table>
+    ${prog?`<ul>${prog}</ul>`:""}`}).join("")};
+  $("weekSel").innerHTML=weeks.map(w=>`<option value="${w}">Week of ${w}</option>`).join("");$("weekSel").onchange=e=>renderWeek(e.target.value);renderWeek(weeks[0])
+}).catch(e=>{document.querySelector("main").insertAdjacentHTML("afterbegin",`<div class="card">${empty("Couldn't load data.json: "+esc(e))}</div>`)});
+</script></body></html>

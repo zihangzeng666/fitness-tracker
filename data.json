@@ -1,0 +1,40 @@
+{
+ "targets": {
+  "kcal": [
+   2800,
+   3000
+  ],
+  "protein": [
+   140,
+   160
+  ]
+ },
+ "food": [],
+ "daily": [],
+ "lifts": [
+  {
+   "date": "2026-11-05",
+   "exercise": "bench press",
+   "set": "working",
+   "weight_kg": "50",
+   "reps": "10-12",
+   "feel": ""
+  },
+  {
+   "date": "2026-11-05",
+   "exercise": "dumbbell shoulder press",
+   "set": "working",
+   "weight_kg": "15 (per hand)",
+   "reps": "10-12",
+   "feel": ""
+  },
+  {
+   "date": "2026-11-05",
+   "exercise": "incline bench press",
+   "set": "working",
+   "weight_kg": "",
+   "reps": "",
+   "feel": ""
+  }
+ ]
+}
