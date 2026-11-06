@@ -191,6 +191,22 @@
    "weight_kg": "40",
    "reps": "12",
    "feel": "additional sets reported; order unspecified"
+  },
+  {
+   "date": "2026-11-06",
+   "exercise": "bench press",
+   "set": "1",
+   "weight_kg": "50",
+   "reps": "8",
+   "feel": "manageable"
+  },
+  {
+   "date": "2026-11-06",
+   "exercise": "bench press",
+   "set": "2",
+   "weight_kg": "50",
+   "reps": "8",
+   "feel": "manageable"
   }
  ]
 }
