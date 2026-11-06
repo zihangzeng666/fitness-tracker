@@ -89,6 +89,38 @@
    "amount": "275g",
    "kcal_est": "650",
    "protein_g_est": "62"
+  },
+  {
+   "date": "2026-11-06",
+   "meal": "dinner",
+   "item": "1.5x beef yakiniku rice bowl including 1 onsen egg",
+   "amount": "1 bowl; estimate",
+   "kcal_est": "1050",
+   "protein_g_est": "55"
+  },
+  {
+   "date": "2026-11-06",
+   "meal": "dinner",
+   "item": "extra onsen eggs",
+   "amount": "2 eggs; 3 eggs total including bowl egg",
+   "kcal_est": "140",
+   "protein_g_est": "12"
+  },
+  {
+   "date": "2026-11-06",
+   "meal": "dinner",
+   "item": "original Coca-Cola",
+   "amount": "assumed 330ml; size unconfirmed",
+   "kcal_est": "139",
+   "protein_g_est": "0"
+  },
+  {
+   "date": "2026-11-06",
+   "meal": "dinner",
+   "item": "Lucozade",
+   "amount": "consumed; variant and volume pending",
+   "kcal_est": "",
+   "protein_g_est": ""
   }
  ],
  "daily": [
@@ -107,8 +139,8 @@
   },
   {
    "date": "2026-11-06",
-   "total_kcal": "1450",
-   "total_protein_g": "87",
+   "total_kcal": "2779",
+   "total_protein_g": "154",
    "whey_scoops": "0",
    "peanut_butter_tbsp": "0",
    "gym_day": "yes",
@@ -116,7 +148,7 @@
    "tennis": "no",
    "soreness_notes": "",
    "soreness_0_10": "",
-   "notes": ""
+   "notes": "Lucozade consumed, kcal pending variant/volume; Coke assumed 330ml; only one beef bowl eaten, three eggs total"
   }
  ],
  "lifts": [
