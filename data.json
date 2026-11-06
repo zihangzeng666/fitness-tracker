@@ -175,6 +175,22 @@
    "weight_kg": "50",
    "reps": "10",
    "feel": ""
+  },
+  {
+   "date": "2026-11-06",
+   "exercise": "back squat",
+   "set": "5",
+   "weight_kg": "40",
+   "reps": "12",
+   "feel": "additional sets reported; order unspecified"
+  },
+  {
+   "date": "2026-11-06",
+   "exercise": "back squat",
+   "set": "6",
+   "weight_kg": "40",
+   "reps": "12",
+   "feel": "additional sets reported; order unspecified"
   }
  ]
 }
