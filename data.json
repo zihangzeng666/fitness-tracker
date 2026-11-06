@@ -151,6 +151,30 @@
    "weight_kg": "40",
    "reps": "12",
    "feel": "felt light"
+  },
+  {
+   "date": "2026-11-06",
+   "exercise": "back squat",
+   "set": "2",
+   "weight_kg": "50",
+   "reps": "",
+   "feel": "reps not yet reported"
+  },
+  {
+   "date": "2026-11-06",
+   "exercise": "back squat",
+   "set": "3",
+   "weight_kg": "50",
+   "reps": "",
+   "feel": "reps not yet reported"
+  },
+  {
+   "date": "2026-11-06",
+   "exercise": "back squat",
+   "set": "4",
+   "weight_kg": "50",
+   "reps": "",
+   "feel": "reps not yet reported"
   }
  ]
 }
