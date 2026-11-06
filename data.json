@@ -207,6 +207,14 @@
    "weight_kg": "50",
    "reps": "8",
    "feel": "manageable"
+  },
+  {
+   "date": "2026-11-06",
+   "exercise": "bench press",
+   "set": "3",
+   "weight_kg": "50",
+   "reps": "8",
+   "feel": ""
   }
  ]
 }
