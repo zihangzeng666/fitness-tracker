@@ -112,7 +112,7 @@
    "whey_scoops": "0",
    "peanut_butter_tbsp": "0",
    "gym_day": "yes",
-   "gym_done": "no",
+   "gym_done": "yes",
    "tennis": "no",
    "soreness_notes": "",
    "soreness_0_10": "",
@@ -143,6 +143,14 @@
    "weight_kg": "",
    "reps": "",
    "feel": ""
+  },
+  {
+   "date": "2026-11-06",
+   "exercise": "back squat",
+   "set": "1",
+   "weight_kg": "40",
+   "reps": "12",
+   "feel": "felt light"
   }
  ]
 }
