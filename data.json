@@ -65,13 +65,21 @@
    "amount": "2 tbsp",
    "kcal_est": "190",
    "protein_g_est": "8"
+  },
+  {
+   "date": "2026-11-05",
+   "meal": "late snack",
+   "item": "whole milk",
+   "amount": "400ml",
+   "kcal_est": "260",
+   "protein_g_est": "13"
   }
  ],
  "daily": [
   {
    "date": "2026-11-05",
-   "total_kcal": "2889",
-   "total_protein_g": "130",
+   "total_kcal": "3149",
+   "total_protein_g": "143",
    "whey_scoops": "1",
    "peanut_butter_tbsp": "2",
    "gym_day": "yes",
