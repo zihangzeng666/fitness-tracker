@@ -73,6 +73,22 @@
    "amount": "400ml",
    "kcal_est": "260",
    "protein_g_est": "13"
+  },
+  {
+   "date": "2026-11-06",
+   "meal": "meal1",
+   "item": "creamy onion tagliatelle",
+   "amount": "1 bowl",
+   "kcal_est": "800",
+   "protein_g_est": "25"
+  },
+  {
+   "date": "2026-11-06",
+   "meal": "meal1",
+   "item": "ribeye steak",
+   "amount": "275g",
+   "kcal_est": "650",
+   "protein_g_est": "62"
   }
  ],
  "daily": [
@@ -82,6 +98,19 @@
    "total_protein_g": "143",
    "whey_scoops": "1",
    "peanut_butter_tbsp": "2",
+   "gym_day": "yes",
+   "gym_done": "no",
+   "tennis": "no",
+   "soreness_notes": "",
+   "soreness_0_10": "",
+   "notes": ""
+  },
+  {
+   "date": "2026-11-06",
+   "total_kcal": "1450",
+   "total_protein_g": "87",
+   "whey_scoops": "0",
+   "peanut_butter_tbsp": "0",
    "gym_day": "yes",
    "gym_done": "no",
    "tennis": "no",
