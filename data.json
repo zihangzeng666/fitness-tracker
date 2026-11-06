@@ -215,6 +215,14 @@
    "weight_kg": "50",
    "reps": "8",
    "feel": ""
+  },
+  {
+   "date": "2026-11-06",
+   "exercise": "barbell row",
+   "set": "1",
+   "weight_kg": "40",
+   "reps": "13",
+   "feel": ""
   }
  ]
 }
