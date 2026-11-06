@@ -135,7 +135,8 @@
    "tennis": "no",
    "soreness_notes": "",
    "soreness_0_10": "",
-   "notes": ""
+   "notes": "",
+   "pending_items": "0"
   },
   {
    "date": "2026-11-06",
@@ -148,7 +149,8 @@
    "tennis": "no",
    "soreness_notes": "",
    "soreness_0_10": "",
-   "notes": "Lucozade consumed, kcal pending variant/volume; Coke assumed 330ml; only one beef bowl eaten, three eggs total"
+   "notes": "Lucozade consumed, kcal pending variant/volume; Coke assumed 330ml; only one beef bowl eaten, three eggs total",
+   "pending_items": "1"
   }
  ],
  "lifts": [
@@ -312,5 +314,6 @@
    "reps": "13",
    "feel": ""
   }
- ]
+ ],
+ "generated_at": "2026-11-06T23:54:55+00:00"
 }
