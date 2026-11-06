@@ -239,6 +239,14 @@
    "weight_kg": "40",
    "reps": "10",
    "feel": ""
+  },
+  {
+   "date": "2026-11-06",
+   "exercise": "dumbbell shoulder press",
+   "set": "1",
+   "weight_kg": "15",
+   "reps": "10",
+   "feel": "seated; weight per hand"
   }
  ]
 }
