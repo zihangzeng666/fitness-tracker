@@ -33,7 +33,7 @@ def save(name, rows, before):
     p = os.path.join(SRC, name)
     if os.path.exists(p):
         bd = os.path.join(SRC, "backups"); os.makedirs(bd, exist_ok=True)
-        shutil.copy2(p, os.path.join(bd, f"{name}.{time.strftime('%Y%m%dT%H%M%S')}.{os.getpid()}.bak"))
+        shutil.copyfile(p, os.path.join(bd, f"{name}.{time.strftime('%Y%m%dT%H%M%S')}.{os.getpid()}.bak"))
     cols = COLS[name] + [c for r in rows for c in r if c not in COLS[name]]
     cols = list(dict.fromkeys(cols))
     fd, tmp = tempfile.mkstemp(dir=SRC, prefix=f".{name}.")

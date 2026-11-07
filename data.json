@@ -121,6 +121,14 @@
    "amount": "consumed; variant and volume pending",
    "kcal_est": "",
    "protein_g_est": ""
+  },
+  {
+   "date": "2026-11-07",
+   "meal": "meal1",
+   "item": "beef yakiniku rice bowl without egg",
+   "amount": "1 bowl; photo estimate; assumed leftover 1.5x beef",
+   "kcal_est": "980",
+   "protein_g_est": "49"
   }
  ],
  "daily": [
@@ -151,6 +159,20 @@
    "soreness_0_10": "",
    "notes": "Lucozade consumed, kcal pending variant/volume; Coke assumed 330ml; only one beef bowl eaten, three eggs total",
    "pending_items": "1"
+  },
+  {
+   "date": "2026-11-07",
+   "total_kcal": "980",
+   "total_protein_g": "49",
+   "whey_scoops": "",
+   "peanut_butter_tbsp": "",
+   "gym_day": "no",
+   "gym_done": "",
+   "tennis": "",
+   "soreness_notes": "",
+   "soreness_0_10": "",
+   "notes": "",
+   "pending_items": "0"
   }
  ],
  "lifts": [
@@ -315,5 +337,5 @@
    "feel": ""
   }
  ],
- "generated_at": "2026-11-06T23:54:55+00:00"
+ "generated_at": "2026-11-07T16:44:59+00:00"
 }
